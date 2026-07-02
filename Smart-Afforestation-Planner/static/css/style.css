@@ -1,0 +1,154 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    min-height: 100vh;
+    color: white;
+    background: 
+        linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+        url("../image/bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Center container */
+.main-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Card */
+.card {
+    text-align: center;
+    padding: 45px 55px;
+
+    background: rgba(0, 0, 0, 0.65);   /* darker for better text visibility */
+    backdrop-filter: blur(15px);      /* glass effect */
+
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+
+    border: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Title */
+.card h1 {
+    font-size: 36px;
+    margin-bottom: 25px;
+    color: #00ff9d;
+    font-weight: 700;
+}
+
+/* Input */
+.card input {
+    width: 280px;
+    padding: 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Button */
+.card button {
+    padding: 12px 22px;
+    margin-left: 10px;
+    background: #1db954;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.card button:hover {
+    background: #14863c;
+}
+
+/* Quote */
+.quote {
+    margin-top: 25px;
+    font-style: italic;
+    font-size: 14px;
+    opacity: 0.85;
+}
+
+/* ================= MAP RESULT PAGE ================= */
+
+.map-page {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    min-height: 100vh;
+    padding: 40px 0;
+}
+
+/* Glass Header */
+.header-card {
+    background: hsl(223, 71%, 87%);   /* Dark navy solid */
+    border-radius: 20px;
+    padding: 30px;
+    color: #ffffff;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+.header-card h1 {
+    color: #22c55e;   /* Bright green title */
+    font-weight: 700;
+}
+
+.header-card p {
+    color: #110101;   /* Pure white text */
+    font-size: 16px;
+    line-height: 1.6;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.header-card p,
+.header-card span {
+    opacity: 1 !important;
+}
+
+/* Map Styling */
+#map {
+    height: 500px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.7);
+}
+
+/* Premium Floating Legend */
+.legend {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    background: rgba(0,0,0,0.8);
+    padding: 15px;
+    border-radius: 12px;
+    color: white;
+    z-index: 1000;   /* IMPORTANT */
+}
+
+.legend span {
+    font-weight: bold;
+}
+
+/* Map Page Background */
+.map-page {
+    margin: 0;
+    min-height: 100vh;
+    color: white;
+
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.65), rgba(0,0,0,0.65)),
+        url("../image/mapbg.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}

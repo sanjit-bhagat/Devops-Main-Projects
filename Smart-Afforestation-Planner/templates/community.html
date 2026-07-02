@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Community Feed</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f5f7f9;
+        }
+
+        .post-card {
+            max-width: 600px;
+            margin: auto;
+            margin-bottom: 20px;
+            border-radius: 15px;
+        }
+
+        .post-header {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        .post-image {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .post-footer {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .like-btn {
+            cursor: pointer;
+            color: #666;
+        }
+
+        .like-btn:hover {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark bg-success px-4">
+    <span class="navbar-brand">🌍 Community Feed</span>
+    <a href="/dashboard" class="btn btn-light btn-sm">Dashboard</a>
+</nav>
+
+<div class="container mt-4">
+
+    {% for p in posts %}
+    <div class="card shadow post-card p-3">
+
+        <div class="d-flex align-items-center mb-2">
+
+            <img src="https://ui-avatars.com/api/?name={{ p.name }}" 
+            style="width:35px; height:35px; border-radius:50%; margin-right:10px;">
+
+            <strong>{{ p.name }}</strong>
+
+        </div>
+
+        <!-- IMAGE -->
+        {% if p.image %}
+        <img src="{{ url_for('static', filename='uploads/' + p.image) }}" class="post-image mb-2">
+        {% endif %}
+
+        <!-- CONTENT -->
+        <p><strong>🌳 Trees:</strong> {{ p.trees_planted }}</p>
+        <p><strong>🌍 Carbon:</strong> {{ p.carbon_reduced }} kg</p>
+
+        <p>{{ p.experience }}</p>
+
+        <!-- FOOTER -->
+        <div class="post-footer">
+            <span class="text-muted">{{ p.time_ago }}</span>
+
+            <a href="{{url_for('like',post_id=p.id)}}" class="like-btn">❤️ {{p.likes}}</a>
+        </div>
+
+    </div>
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

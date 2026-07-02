@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-light">
+
+<!-- Navbar -->
+<nav class="navbar navbar-dark bg-success px-4">
+    <span class="navbar-brand">🌳 Smart Afforestation Planner</span>
+    <div>
+        <a href="/index" class="btn btn-light btn-sm">Planner</a>
+        <a href="/logout" class="btn btn-danger btn-sm">Logout</a>
+        <a href="/community" class="btn btn-info btn-sm">Community</a>
+    </div>
+</nav>
+
+<div class="container mt-4">
+
+    <h3 class="text-success">Welcome, {{ session['user_name'] }} 🌱</h3>
+
+    <!-- Stats Cards -->
+    <div class="row mt-4">
+
+        <div class="col-md-4">
+            <div class="card text-center shadow p-3 border-success">
+                <h5>Total Trees 🌳</h5>
+                <h2 class="text-success">{{ total_trees }}</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow p-3 border-primary">
+                <h5>Total Carbon Reduced 🌍</h5>
+                <h2 class="text-primary">{{ total_carbon }} kg</h2>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-center shadow p-3 border-warning">
+                <h5>Your Badge 🏅</h5>
+                <h4 class="text-warning">{{ badge }}</h4>
+            </div>
+        </div>
+
+    </div>
+    <!-- Stats Cards End -->
+
+    <!-- Graph -->
+    <div class="card p-4 shadow mt-4">
+        <h5>📊 Tree Growth Chart</h5>
+        <canvas id="treeChart"></canvas>
+    </div>
+
+    <!-- Add Plantation Form -->
+    <div class="card p-4 shadow mt-3">
+        <h5>Add Your Plantation</h5>
+
+        <form method="POST" action="/add_plantation" enctype="multipart/form-data">
+
+            <input type="number" name="trees" class="form-control mb-2"
+                placeholder="Number of Trees Planted" required>
+
+            <textarea name="experience" class="form-control mb-2"
+                placeholder="Share your experience..." required></textarea>
+
+            <input type="file" name="image" class="form-control mb-2" required>
+
+            <button class="btn btn-success">Submit</button>
+
+        </form>
+    </div>
+
+    <!-- Plantation History -->
+    <h4 class="mt-4">Your Plantation History</h4>
+
+    {% if plantations %}
+
+        {% for p in plantations %}
+        <div class="card p-3 mb-3 shadow-sm">
+
+            <p><strong>Trees:</strong> {{ p.trees_planted }}</p>
+            <p><strong>Carbon Reduced:</strong> {{ p.carbon_reduced }} kg</p>
+
+            {% if p.image %}
+            <img src="{{ url_for('static', filename='uploads/' + p.image) }}"
+                class="img-fluid rounded mb-2" width="200">
+            {% endif %}
+
+            <p><strong>Experience:</strong> {{ p.experience }}</p>
+            <small class="text-muted">{{ p.created_at }}</small>
+
+            <!-- Certificate Button -->
+            <div class="mt-2">
+                <a href="{{ url_for('certificate', plantation_id=p.id) }}"
+                   class="btn btn-sm btn-success">
+                   🎓 Download Certificate
+                </a>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    {% else %}
+        <p>No plantation history yet 🌱</p>
+    {% endif %}
+
+</div>
+
+<!-- Chart Script -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+    const dates = JSON.parse('{{ dates | tojson | safe }}');
+    const treesData = JSON.parse('{{ trees_data | tojson | safe }}');
+
+    const ctx = document.getElementById('treeChart');
+
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dates,
+                datasets: [{
+                    label: 'Trees Planted',
+                    data: treesData,
+                    borderWidth: 2,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Plantation</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f1f8e9;
+            text-align: center;
+        }
+
+        .form-box {
+            background: white;
+            padding: 30px;
+            width: 400px;
+            margin: 50px auto;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        input, textarea {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background: #2e7d32;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-box">
+    <h2>🌿 Add Plantation Record</h2>
+
+    <form method="POST">
+        <input type="number" name="trees" placeholder="Number of Trees" required>
+        <input type="text" name="location" placeholder="Location" required>
+        <textarea name="experience" placeholder="Your Experience"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>

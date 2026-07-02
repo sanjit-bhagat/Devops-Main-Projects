@@ -1,0 +1,4 @@
+Flask
+earthengine-api
+geemap
+gunicorn

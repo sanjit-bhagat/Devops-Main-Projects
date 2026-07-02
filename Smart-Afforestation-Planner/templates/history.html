@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1200px;
+            margin: 40px auto;
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #2a5298;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        th {
+            background: #2a5298;
+            color: white;
+            padding: 12px;
+            text-transform: uppercase;
+            font-size: 13px;
+        }
+
+        td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #dbe9ff;
+            transition: 0.3s;
+        }
+
+        .badge-high {
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .badge-medium {
+            background: #ffc107;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+        .badge-low {
+            background: #dc3545;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+        }
+
+    .back-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 25px;
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    border: 1px solid rgba(255,255,255,0.3);
+    transition: 0.3s ease;
+}
+
+.back-btn:hover {
+    background: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+}
+
+.toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    min-width: 250px;
+    padding: 15px 25px;
+    border-radius: 15px;
+    color: white;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    background: rgba(40, 167, 69, 0.8);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    transform: translateX(150%);
+    opacity: 0;
+    transition: all 0.5s ease;
+    z-index: 9999;
+}
+
+/* Show animation */
+.toast.show {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+/* Success style */
+.toast.success {
+    background: rgba(40, 167, 69, 0.85);
+}
+
+/* Error style (future use) */
+.toast.error {
+    background: rgba(220, 53, 69, 0.85);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/" class="back-btn">← Back to Map</a>
+
+    <h1>Afforestation Analysis History</h1>
+    
+    <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 25px;">
+        
+    <div style="flex:1; background:#2a5298; color:white; padding:20px; border-radius:12px;">
+        <h3>Total Analyses</h3>
+        <h2>{{ total }}</h2>
+    </div>
+
+    <div style="flex:1; background:#28a745; color:white; padding:20px; border-radius:12px;">
+        <h3>Average NDVI</h3>
+        <h2>{{ avg_ndvi }}</h2>
+    </div>
+
+    <div style="flex:1; background:#ffc107; padding:20px; border-radius:12px;">
+        <h3>High Suitability</h3>
+        <h2>{{ high_count }}</h2>
+    </div>
+
+    <div style="flex:1; background:#dc3545; color:white; padding:20px; border-radius:12px;">
+        <h3>Low Suitability</h3>
+        <h2>{{ low_count }}</h2>
+    </div>
+
+</div>
+    <h2 style="margin-top: 30px; color:#2a5298;">NDVI Trend Analysis</h2>
+
+    <canvas id="ndviChart" height="100"></canvas>
+    <script>
+    const dates = JSON.parse('{{ dates | tojson | safe }}');
+    const ndviValues = JSON.parse('{{ ndvi_values | tojson | safe }}');
+
+    const ctx = document.getElementById('ndviChart').getContext('2d');
+
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates,
+            datasets: [{
+                label: 'NDVI Value',
+                data: ndviValues,
+                borderColor: '#2a5298',
+                backgroundColor: 'rgba(42,82,152,0.1)',
+                borderWidth: 2,
+                tension: 0.3,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    min: 0,
+                    max: 1
+                }
+            }
+        }
+    });
+</script>
+    
+    <table>
+    <tr>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>NDVI</th>
+        <th>Temp (°C)</th>
+        <th>Climate</th>
+        <th>Suitability</th>
+        <th>Date</th>
+        <th>Action</th>
+    </tr>
+
+    {% for row in records %}
+    <tr>
+        <td>{{ row[1] }}</td>
+        <td>{{ row[2] }}</td>
+        <td>{{ row[3] }}</td>
+        <td>{{ row[4] }}</td>
+        <td>{{ row[5] }}</td>
+
+        <td>
+            {% if row[6] == "High" %}
+                <span class="badge-high">High</span>
+            {% elif row[6] == "Medium" %}
+                <span class="badge-medium">Medium</span>
+            {% else %}
+                <span class="badge-low">Low</span>
+            {% endif %}
+        </td>
+
+        <td>{{ row[7] }}</td>
+
+        <td>
+            <form action="{{ url_for('delete_history', id=row[0]) }}" method="POST">
+                <button type="submit"
+                        style="background:#dc3545; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;"
+                        onclick="return confirm('Are you sure you want to delete this record?');">
+                    🗑 Delete
+                </button>
+            </form>
+        </td>
+
+    </tr>
+    {% endfor %}
+</table>
+
+</div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div id="toast" class="toast {{ category }}">
+        {{ message }}
+      </div>
+    {% endfor %}
+
+    <script>
+      const toast = document.getElementById("toast");
+
+      setTimeout(() => {
+          toast.classList.add("show");
+      }, 100);
+
+      setTimeout(() => {
+          toast.classList.remove("show");
+      }, 3000);
+    </script>
+  {% endif %}
+{% endwith %}
+</body>
+</html>

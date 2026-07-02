@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Afforestation Analysis Result</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body class="map-page">
+
+<div class="container py-4">
+
+    <!-- Header Card -->
+    <div class="card shadow-lg p-4 mb-4 header-card">
+        <h2 class="text-success fw-bold">
+            🌱 Afforestation Suitability Analysis
+        </h2>
+        <p class="mb-1"><b>Location:</b> {{ location }}</p>
+        <p class="text-muted">
+            Color scale represents vegetation suitability based on NDVI values.
+        </p>
+
+        <a href="/" class="btn btn-outline-success btn-sm mt-2" style="font-weight: bold;">
+             Go To Home Page
+        </a>
+    </div>
+
+    <!-- Map -->
+    <div id="map"></div>
+
+</div>
+
+<!-- Legend -->
+<div class="legend">
+    <div><span style="color:#1a9850;">■</span> High Suitability</div>
+    <div><span style="color:#fee08b;">■</span> Moderate Suitability</div>
+    <div><span style="color:#d73027;">■</span> Low Suitability</div>
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+
+    const centerLat = Number("{{ center_lat }}");
+    const centerLon = Number("{{ center_lon }}");
+    const tileUrl = "{{ tile_url | safe }}";
+
+    const map = L.map("map").setView([centerLat, centerLon], 12);
+    // Handle map click
+    map.on("click", function (e) {
+        const lat = e.latlng.lat;
+        const lon = e.latlng.lng;
+
+        // Redirect to details page with coordinates
+        window.location.href = `/details?lat=${lat}&lon=${lon}`;
+    });
+
+
+    // Base Map
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors"
+    }).addTo(map);
+
+    // Marker
+    L.marker([centerLat, centerLon])
+        .addTo(map)
+        .bindPopup("Selected Location")
+        .openPopup();
+
+    // NDVI Suitability Layer
+    if (tileUrl) {
+        L.tileLayer(tileUrl, {
+            opacity: 0.65
+        }).addTo(map);
+    }
+
+</script>
+
+</body>
+</html>

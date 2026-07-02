@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart Afforestation Planner</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<style>
+.history-btn {
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    padding: 10px 22px;
+    border-radius: 30px;
+    
+    background: rgba(255, 255, 255, 0.08);  /* transparent */
+    backdrop-filter: blur(10px);            /* glass effect */
+    
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    
+    transition: all 0.3s ease;
+}
+.history-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 12px rgba(0, 255, 100, 0.6);
+    transform: translateY(-2px);
+}
+
+.quote-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.quote-track {
+    display: inline-block;
+    white-space: nowrap;
+    animation: scrollText 15s linear infinite;
+}
+
+#quote-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    padding: 8px 25px;
+    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 0 15px rgba(0, 255, 100, 0.4);
+}
+
+@keyframes scrollText {
+    0% {
+        transform: translateX(100vw);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+</style>
+<div class="quote-wrapper">
+    <div class="quote-track">
+        <span id="quote-text"></span>
+    </div>
+</div>
+<script>
+const quotes = [
+    "The best time to plant a tree was 20 years ago. The second best time is now.",
+    "The true meaning of life is to plant trees, under whose shade you do not expect to sit.",
+    "Love is like a tree, it grows of its own accord, it puts down deep roots into our whole being.",
+    "Learn character from trees, values from roots, and change from leaves.",
+    "Forests are the lungs of our planet.",
+    "Small actions today create green futures.",
+    "Every tree counts in the fight against climate change."
+];
+
+let currentQuote = 0;
+const quoteElement = document.getElementById("quote-text");
+
+function updateQuote() {
+    quoteElement.textContent = quotes[currentQuote];
+    currentQuote = (currentQuote + 1) % quotes.length;
+}
+
+updateQuote();
+setInterval(updateQuote, 15000);
+</script>
+
+<div style="text-align: right; margin-bottom: 15px;">
+    <a href="/history" class="history-btn">
+        📊 View Analysis History
+    </a>
+</div>
+<div class="main-container">
+        <div class="card">
+            <h1>🌱 Smart Afforestation Planner</h1>
+
+            <form method="post">
+                <input type="text" name="location" placeholder="Enter location (e.g. Mumbai, Delhi, Bangalore)" required>
+                <button type="submit">Analyze</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Certificate</title>
+
+    <style>
+body {
+    margin: 0;
+    padding: 0;
+    background: #eaf5ea;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.certificate-container {
+    position: relative;
+
+    width: 900px;
+    height: 600px;
+    max-width: 95%;
+
+    background: url("{{ url_for('static', filename='image/certificate.png') }}");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+/* USER NAME */
+.name {
+    position: absolute;
+    top: 47%;             
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 30px;
+    font-weight: bold;
+    color: #075016;
+}
+
+/* DATE */
+.date {
+    position: absolute;
+    bottom: 19%;          
+    left: 22%;
+    font-size: 16px;
+    font-weight: bold;
+    color: #075016;
+}
+</style>
+</head>
+
+<body>
+
+<div class="certificate-container">
+
+    <!-- Dynamic Name -->
+    <div class="name">
+        {{ user_name }}
+    </div>
+
+    <!-- Dynamic Date -->
+    <div class="date">
+        {{ date }}
+    </div>
+
+</div>
+
+</body>
+</html>
