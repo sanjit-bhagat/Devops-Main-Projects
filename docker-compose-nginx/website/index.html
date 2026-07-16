@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Compose Project</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:linear-gradient(135deg,#0f172a,#2563eb);
+            color:white;
+        }
+
+        nav{
+            background:#111827;
+            padding:18px;
+            text-align:center;
+            font-size:28px;
+            font-weight:bold;
+            letter-spacing:1px;
+        }
+
+        .container{
+            width:90%;
+            max-width:1100px;
+            margin:40px auto;
+            text-align:center;
+        }
+
+        h1{
+            font-size:45px;
+            margin-bottom:15px;
+        }
+
+        h2{
+            color:#facc15;
+            margin-bottom:20px;
+        }
+
+        p{
+            font-size:18px;
+            line-height:1.7;
+        }
+
+        .btn{
+            display:inline-block;
+            margin-top:25px;
+            padding:12px 30px;
+            background:#22c55e;
+            color:white;
+            text-decoration:none;
+            border-radius:6px;
+            font-weight:bold;
+        }
+
+        .btn:hover{
+            background:#16a34a;
+        }
+
+        .cards{
+            display:flex;
+            justify-content:center;
+            gap:20px;
+            flex-wrap:wrap;
+            margin-top:50px;
+        }
+
+        .card{
+            background:rgba(255,255,255,0.12);
+            width:300px;
+            padding:25px;
+            border-radius:12px;
+            transition:.3s;
+            box-shadow:0 8px 20px rgba(0,0,0,.3);
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+        }
+
+        .card h3{
+            color:#facc15;
+            margin-bottom:15px;
+        }
+
+        .status{
+            margin-top:50px;
+            background:rgba(255,255,255,.12);
+            padding:25px;
+            border-radius:12px;
+        }
+
+        ul{
+            list-style:none;
+            margin-top:20px;
+        }
+
+        ul li{
+            padding:8px;
+            font-size:18px;
+        }
+
+        footer{
+            background:#111827;
+            margin-top:50px;
+            padding:25px;
+            text-align:center;
+        }
+
+        footer p{
+            margin:8px;
+        }
+
+        .badge{
+            display:inline-block;
+            margin:8px;
+            padding:8px 15px;
+            background:#1d4ed8;
+            border-radius:20px;
+        }
+    </style>
+
+</head>
+<body>
+
+<nav>
+🐳 Docker Compose Demo Project
+</nav>
+
+<div class="container">
+
+<h1>Welcome to My Docker Compose Project 🚀</h1>
+
+<h2>Deploying a Static Website using Docker Compose & Nginx</h2>
+
+<p>
+This website is running inside an <b>Nginx Docker Container</b> managed by
+<b>Docker Compose</b>. The goal of this project is to learn how multiple
+Docker services can be managed using a single configuration file.
+</p>
+
+<a href="https://www.docker.com/" class="btn" target="_blank">
+Learn Docker
+</a>
+
+<div class="cards">
+
+<div class="card">
+<h3>📦 Docker</h3>
+<p>
+Containerizes applications so they run consistently across different environments.
+</p>
+</div>
+
+<div class="card">
+<h3>⚙ Docker Compose</h3>
+<p>
+Starts, stops and manages multiple containers using one YAML file.
+</p>
+</div>
+
+<div class="card">
+<h3>🌐 Nginx</h3>
+<p>
+A lightweight and high-performance web server used to host this website.
+</p>
+</div>
+
+</div>
+
+<div class="status">
+
+<h2>Project Status</h2>
+
+<p>✅ Container Running Successfully</p>
+<p>✅ Docker Compose Configured</p>
+<p>✅ Website Accessible on Port 8080</p>
+
+<br>
+
+<h2>Learning Checklist</h2>
+
+<ul>
+<li>✅ Docker Installation</li>
+<li>✅ Docker Images</li>
+<li>✅ Docker Containers</li>
+<li>✅ Docker Volumes</li>
+<li>✅ Docker Networking</li>
+<li>✅ Docker Compose</li>
+</ul>
+
+</div>
+
+<br>
+
+<h2>Technologies Used</h2>
+
+<span class="badge">Docker</span>
+<span class="badge">Docker Compose</span>
+<span class="badge">Nginx</span>
+<span class="badge">HTML</span>
+<span class="badge">CSS</span>
+
+</div>
+
+<footer>
+
+<h3>👨‍💻 Created by Sanjit</h3>
+
+<p>DevOps Engineer | Docker Enthusiast | Continuous Learning 🚀</p>
+
+<p>
+This project demonstrates the basics of Docker Compose, container deployment,
+volume mounting, and port mapping.
+</p>
+
+<p>© 2026 All Rights Reserved.</p>
+
+</footer>
+
+</body>
+</html>
